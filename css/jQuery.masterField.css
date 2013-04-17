@@ -1,0 +1,34 @@
+.add-master-field{
+
+	background: url("../images/add.png") no-repeat center top;
+	cursor: pointer;
+	display: inline-block;	
+	height: 16px;
+	margin-top: 4px;
+	width: 16px;
+
+}
+
+.add-master-field:hover{
+
+
+}
+
+.cancel-master-field{
+
+	background: url("../images/cancel.png") no-repeat center top;
+	cursor: pointer;
+	display: inline-block;	
+	height: 16px;
+	margin-top: 4px;
+	width: 16px;
+
+}
+
+.cancel-master-field:hover{
+
+}
+
+.first-master-field{
+	vertical-align: top;
+}

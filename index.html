@@ -1,0 +1,33 @@
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="css/jQuery.masterField.css" />
+	<script src="js/jquery.js" type="text/javascript" charset="utf-8" ></script>
+	<script src="js/jquery.migrate.js" type="text/javascript" charset="utf-8" ></script>
+	<!--<script src="js/jQuery.masterField.js" type="text/javascript" charset="utf-8" ></script>-->
+	<script src="js/jQuery.boilerplate.masterField.js" type="text/javascript" charset="utf-8" ></script>
+</head>
+<script>
+
+   jQuery(document).ready(function($) {
+      masterField =	$("#contenedor_ciudad").masterField();
+
+   });
+</script>
+<body>
+
+    <div id="contenedor_ciudad">
+		<select name="ciudad" id="ciudad" >
+			<option value="1">Cali</option>
+			<option value="2">Bogota</option>
+		</select>
+	</div>
+	<div id="contenedor_pais">
+		<select name="pais" id="pais" >
+			<option value="1">Colombia</option>
+			<option value="2">argentina</option>
+		</select>
+	</div>
+</body>
+</html>
+
