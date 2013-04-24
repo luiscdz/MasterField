@@ -1,5 +1,11 @@
+/*
+ * @version 0.1
+ *
+ * Created By Luis Eduardo Cardozo (https://github.com/luiscdz/MasterField.git)
+ *
+ */
 
-;(function( $, window, document, undefined ) {
+ ;(function( $, window, document, undefined ) {
 
 
     // se crean opciones por defecto.
@@ -177,101 +183,3 @@
 })( jQuery, window, document );
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*;(function($,window,document,undefined){
-
-
-	$.masterField = function(element, options){
-
-       
-        var defaults = {
-            foo: 'bar',
-            onFoo: function() {},
-            hola : 56
-        }
-
- 
-        var plugin = this;
- 
-        plugin.settings = {}
- 
-        var $element = $(element);
-             element = element;
-
- 
-        plugin.init = function() {
-
-            plugin.settings = $.extend({}, defaults, options);
-
-            _debug('settings: ');
-            _debug(plugin.settings);
-         
-        }
- 		
-*/
- 		 /*Metodos Publicos   
-        plugin.public_method = function() {
-           
-           
-        }
-        
-
-       /*Metodos Privados       	
-       var 	_debug  = function(obj) {
-										if (window.console && window.console.log){
-											//window.console.log('Contador de selecciones: ' + $obj.size());
-											window.console.log(obj);
-											
-									    }
-									}
-
-		
- 
-        plugin.init();
- 
-    }
-
-
-
-	 $.fn.masterField = function(options) {
-	 
-	        // iterate through the DOM elements we are attaching the plugin to
-	        return this.each(function() {
-	 
-	            // if plugin has not already been attached to the element
-	            if (undefined == $(this).data('masterField')) {
-	 
-	                // create a new instance of the plugin
-	                // pass the DOM element and the user-provided options as arguments
-	                var plugin = new $.masterField(this, options);
-	 
-	                // in the jQuery version of the element
-	                // store a reference to the plugin object
-	                // you can later access the plugin and its methods and properties like
-	                // element.data('pluginName').publicMethod(arg1, arg2, ... argn) or
-	                // element.data('pluginName').settings.propertyName
-	                $(this).data('masterField', plugin);
-	 
-	            }
-	 
-	        });
-	 
-	    }
-})(jQuery,window,document);	    */
