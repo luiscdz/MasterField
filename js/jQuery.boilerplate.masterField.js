@@ -22,7 +22,13 @@
         
 			        this.element  = element; // Se matiene el HTML plano.
 			        this.jElement = $(element); // Se convierte en un selector de jQuery y se le aniade un nuevo atributo.
-			        this.jHijos   = this.jElement.children().attr('name','master-field-'+this.jElement.attr('id'));
+			        this.jHijos   = this.jElement.children();
+			        this.jHijos.each(function(index,obj){
+
+			        					$(obj).attr('name','master-field-'+$(obj).attr('id'));
+			        				});
+
+			      	this.jHijos.addClass('simple-master-field'); 
 			        this.jClon    = this.jElement.clone();
 
 			        this.options = $.extend( {}, defaults, options ); // Clase para el manejo de las opciones.
@@ -66,8 +72,6 @@
 
    /*Metodos privados*/       	
 	var _private = {   
-						
-
 	 					debug : function(obj) {
 								if (window.console && window.console.log){
 									//window.console.log('Contador de selecciones: ' + $obj.size());
@@ -93,7 +97,7 @@
 
 						formatear : function(jElement,jHijos,options) {
 							 	  							
-			   						jHijos.addClass('first-master-field simple-master-field');	   		 		   	
+			   						jHijos.addClass('first-master-field');	   		 		   	
 			   						var htmlInicial = jElement.html();
 			   						var btnAdd =  '<span class="add-master-field"></span></div>';
 
@@ -111,6 +115,7 @@
 						crearObj : function(event) {
 
 									var container = jQuery(".container-master-field ").children();
+									//Aqui se presenta un bug porque siempre esta tomando la primera opción.
 
 									var plugin = event.data;
 									var  element = jQuery(this);
