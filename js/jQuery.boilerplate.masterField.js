@@ -42,7 +42,7 @@
         init: function() {
 
          			_private.formatear(this.jElement,this.jHijos, this.options); //Establecemos el formato
-         			_private.eventAddElement();
+         			_private.eventAddElement(this.jClon,this.options);
          			_private.eventDeleteElement();
             
         },
@@ -69,11 +69,11 @@
 							    }
 							},
 
-						eventAddElement: function(){
+						eventAddElement: function(jClon,options){
 
         					 	
 					           var botonAdd    = '.add-master-field';
-					           var data = {jClon:this.jClon,options:this.options};
+					           var data = {jClon:jClon,options:options};
 						   	   $(document).on('click',botonAdd,data,_private.crearObj) ;
 
 				       	},
@@ -104,8 +104,11 @@
 
 						crearObj : function(event) {
 
+									var container = jQuery(".container-master-field ").children();
+
 									var plugin = event.data;
-									var jAddElement =  jQuery(this);
+									var  element = jQuery(this);
+									var jAddElement =  element.length > 1? element:container.last();
 
 									 _private.debug("jClon :");	
         					  		 _private.debug(plugin.jClon);	
