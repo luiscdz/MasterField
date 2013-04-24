@@ -5,7 +5,10 @@
     // se crean opciones por defecto.
     var pluginName = "masterField";
         defaults = {
-            		  propertyName: "value"
+            		 	repeatElements: "", //No Implementado en esta versión
+            		 	IdBoxNumberAdding : "", //No Implementado en esta versión
+            		 	buttomAdd: true,
+            		 	buttomDelete: true,
        			   };
     var cont = 0;
     // Metodo construcctor del Plugin
@@ -13,22 +16,22 @@
         
 			        this.element  = element; // Se matiene el HTML plano.
 			        this.jElement = $(element); // Se convierte en un selector de jQuery y se le aniade un nuevo atributo.
-			        this.jHijos   = this.jElement.children().attr('name','master-field');
+			        this.jHijos   = this.jElement.children().attr('name','master-field-'+this.jElement.attr('id'));
 			        this.jClon    = this.jElement.clone();
 
 			        this.options = $.extend( {}, defaults, options ); // Clase para el manejo de las opciones.
-
+					
 			        this._defaults = defaults; // Opciones por defecto
 			        this._name = pluginName; // Nombre del plugin
 
-			        _private.debug("Elemento HTML:");
+			       /* _private.debug("Elemento HTML:");
 			        _private.debug(this.element);
 			        _private.debug("Selector jQuery:");
           			_private.debug(this.jElement);
           			_private.debug("Hijos :");
           			_private.debug(this.jHijos);
           			_private.debug("jClon :");
-          			_private.debug(this.jClon);
+          			_private.debug(this.jClon);*/
 
 			        this.init();// Metodo Main
 			    };
@@ -38,24 +41,20 @@
 
         init: function() {
 
-         			_private.formatear(this.jElement,this.jHijos); //Establecemos el formato
-         			this.adicionarElemento();
-         			this.eliminarElementos();
+         			_private.formatear(this.jElement,this.jHijos, this.options); //Establecemos el formato
+         			_private.eventAddElement();
+         			_private.eventDeleteElement();
             
         },
-        adicionarElemento: function(){
 
-					           var botonAdd    = '.add-master-field';
-					           var data = {jClon:this.jClon, jElement : this.jElement};
-						   	   $(document).on('click',botonAdd,data,_private.crearObj) ;
+        addElement: function() {
 
-       	},
-       	eliminarElementos: function() {
-       		
-       		               	   var botonCancel = '.cancel-master-field';       		               	
-						   	   $(document).on('click',botonCancel,_private.eliminaObj);
-
-       	}
+        		var data = {jClon:this.jClon,options:this.options};
+        		var args = {data:data};
+        	 	_private.crearObj(args);
+        }
+        
+       	
 
     };
 
@@ -70,26 +69,81 @@
 							    }
 							},
 
-						formatear : function(jElement,jHijos) {
+						eventAddElement: function(){
+
+        					 	
+					           var botonAdd    = '.add-master-field';
+					           var data = {jClon:this.jClon,options:this.options};
+						   	   $(document).on('click',botonAdd,data,_private.crearObj) ;
+
+				       	},
+
+				       	eventDeleteElement: function() {
+       		
+       		               	   var botonCancel = '.cancel-master-field';       		               	
+						   	   $(document).on('click',botonCancel,_private.eliminaObj);
+
+       					},
+
+						formatear : function(jElement,jHijos,options) {
 							 	  							
 			   						jHijos.addClass('first-master-field simple-master-field');	   		 		   	
 			   						var htmlInicial = jElement.html();
-			   						var formato =   '<div class="container-master-field">' + htmlInicial + '<span class="add-master-field"></span></div>';
+			   						var btnAdd =  '<span class="add-master-field"></span></div>';
+
+			   						if ( typeof options.buttomAdd == "boolean" &&  options.buttomAdd == false){
+			   							btnAdd = "";
+
+			   						}else{
+			   							 _private.debug('buttomAdd: Esta propiedad debe ser un boolean');
+			   						}
+
+			   						var formato =   '<div class="container-master-field">' + htmlInicial + btnAdd;
 			   						jElement.html(formato);
 						},
 
 						crearObj : function(event) {
 
 									var plugin = event.data;
+									var jAddElement =  jQuery(this);
+
+									 _private.debug("jClon :");	
+        					  		 _private.debug(plugin.jClon);	
+        					   		 _private.debug("jElement :");	
+        					  		 _private.debug( plugin.jElement);
+
+        					  		 _private.debug(this);
+
 									cont = cont + 1;
 									var jHijo = plugin.jClon.children();
 									    jHijo.each(function(){
 												var id = $(this).attr('id');
 												$(this).attr('id',id+cont);
-									});							
+									});
+
+
+									var btnAdd = '<span class="add-master-field"></span>';
+									var btnDelete = '<span class="cancel-master-field"></span>';
+
+
+									if ( typeof  plugin.options.buttomAdd == "boolean" &&  plugin.options.buttomAdd == false){
+			   							btnAdd = "";
+			   						}else{
+			   							 _private.debug('buttomAdd: Esta propiedad debe ser un boolean');
+			   						}
+
+
+			   						if ( typeof  plugin.options.buttomDelete == "boolean" &&  plugin.options.buttomDelete == false){
+			   							btnDelete = "";
+
+			   						}else{
+			   							 _private.debug('btnDelete: Esta propiedad debe ser un boolean');
+			   						}
+
+
 									var htmlInicial = plugin.jClon.html();
-		   							var formato =   '<div  class="container-master-field">' + htmlInicial + '<span class="add-master-field"></span><span class="cancel-master-field"></span></div>';
-									plugin.jElement.append(formato);
+		   							var formato =   '<div  class="container-master-field">' + htmlInicial +btnAdd+btnDelete+ '</div>';
+									jAddElement.parent().after(formato);
 			   						
 						},
 						eliminaObj : function(event) {
