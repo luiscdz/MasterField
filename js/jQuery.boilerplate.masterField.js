@@ -10,6 +10,7 @@
 
     // se crean opciones por defecto.
     var pluginName = "masterField";
+
         defaults = {
             		 	repeatElements: "", //No Implementado en esta versión
             		 	IdBoxNumberAdding : "", //No Implementado en esta versión
@@ -17,6 +18,7 @@
             		 	buttomDelete: true,
        			   };
     var cont = 0;
+
     // Metodo construcctor del Plugin
     var Plugin = function (element, options) {
         
@@ -35,17 +37,8 @@
 					
 			        this._defaults = defaults; // Opciones por defecto
 			        this._name = pluginName; // Nombre del plugin
-
-			       /* _private.debug("Elemento HTML:");
-			        _private.debug(this.element);
-			        _private.debug("Selector jQuery:");
-          			_private.debug(this.jElement);
-          			_private.debug("Hijos :");
-          			_private.debug(this.jHijos);
-          			_private.debug("jClon :");
-          			_private.debug(this.jClon);*/
-
 			        this.init();// Metodo Main
+
 			    };
 
     /*Metodos publicos*/
@@ -101,14 +94,17 @@
 			   						var htmlInicial = jElement.html();
 			   						var btnAdd =  '<span class="add-master-field"></span></div>';
 
-			   						if ( typeof options.buttomAdd == "boolean" &&  options.buttomAdd == false){
-			   							btnAdd = "";
+			   						if ( typeof options.buttomAdd == "boolean"){
+
+			   							if (options.buttomAdd == false){
+			   								btnAdd = "";
+			   							}
 
 			   						}else{
 			   							 _private.debug('buttomAdd: Esta propiedad debe ser un boolean');
 			   						}
 
-			   						var formato =   '<div class="container-master-field">' + htmlInicial + btnAdd;
+			   						var formato =   '<div class="container-master-field first-container-master-field">' + htmlInicial + btnAdd;
 			   						jElement.html(formato);
 						},
 
@@ -118,17 +114,19 @@
 									//Aqui se presenta un bug porque siempre esta tomando la primera opción.
 
 									var plugin = event.data;
-									var  element = jQuery(this);
-									var jAddElement =  element.length > 1? element:container.last();
+									var  elementEvent = this;
+									_private.debug(elementEvent);
+									var jAddElement = null; 
 
-									 _private.debug("jClon :");	
-        					  		 _private.debug(plugin.jClon);	
-        					   		 _private.debug("jElement :");	
-        					  		 _private.debug( plugin.jElement);
+										if(elementEvent == undefined){
+											jAddElement = elementEvent
 
-        					  		 _private.debug(this);
+										}else{
+											jAddElement = container.last()
+										}	
 
 									cont = cont + 1;
+
 									var jHijo = plugin.jClon.children();
 									    jHijo.each(function(){
 												var id = $(this).attr('id');
@@ -136,19 +134,26 @@
 									});
 
 
-									var btnAdd = '<span class="add-master-field"></span>';
+									var btnAdd    = '<span class="add-master-field"></span>';
 									var btnDelete = '<span class="cancel-master-field"></span>';
 
 
-									if ( typeof  plugin.options.buttomAdd == "boolean" &&  plugin.options.buttomAdd == false){
-			   							btnAdd = "";
+									if ( typeof  plugin.options.buttomAdd == "boolean" ){
+											
+											if(plugin.options.buttomAdd == false){
+			   									btnAdd = "";
+			   								}
+
 			   						}else{
 			   							 _private.debug('buttomAdd: Esta propiedad debe ser un boolean');
 			   						}
 
 
-			   						if ( typeof  plugin.options.buttomDelete == "boolean" &&  plugin.options.buttomDelete == false){
-			   							btnDelete = "";
+			   						if ( typeof  plugin.options.buttomDelete == "boolean"){
+
+			   								if(plugin.options.buttomDelete == false){
+			   									btnDelete = "";
+			   								}
 
 			   						}else{
 			   							 _private.debug('btnDelete: Esta propiedad debe ser un boolean');
