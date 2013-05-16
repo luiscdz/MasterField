@@ -8,4 +8,4 @@ Este plugin es un experimento personal con el fin de aprender hacer plugins en j
 no he viste un plugin de este tipo sencillo y sin complicarse con un plugin complejo de Grillas.
 
 
-Tiene el permiso de modificary usar este codigo como ustedes gusten y agradeceré sus opiniones.
+Este codigo esta cubierto con licenciamiento GPL.
