@@ -4,7 +4,7 @@
  * Created By Luis Eduardo Cardozo (https://github.com/luiscdz/MasterField.git)
  *
  */
-
+var hola = 0;
  ;(function( $, window, document, undefined ) {
 
 
@@ -32,6 +32,9 @@
 
 			      	this.jHijos.addClass('simple-master-field'); 
 			        this.jClon    = this.jElement.clone();
+ _private.debug("---");
+			        _private.debug(this.jClon);
+_private.debug("---");
 
 			        this.options = $.extend( {}, defaults, options ); // Clase para el manejo de las opciones.
 					
@@ -47,7 +50,7 @@
         init: function() {
 
          			_private.formatear(this.jElement,this.jHijos, this.options); //Establecemos el formato
-         			_private.eventAddElement(this.jClon,this.options);
+         			_private.eventAddElement(this.jElement,this.jClon,this.options);
          			_private.eventDeleteElement();
             
         },
@@ -56,7 +59,9 @@
 
         		var data = {jClon:this.jClon,options:this.options};
         		var args = {data:data};
-        	 	_private.crearObj(args);
+        		 _private.debug("/---add clone ----"); 
+        	 	_private.crearObj(data.jClon);
+
         }
         
        	
@@ -72,12 +77,15 @@
 							    }
 							},
 
-						eventAddElement: function(jClon,options){
+						eventAddElement: function(jElement,jClon,options){
 
         					 	
 					           var botonAdd    = '.add-master-field';
+					           _private.debug("/---EvenrAdd clone ----");  
+					           	hola++;
 					           var data = {jClon:jClon,options:options};
-						   	   $(document).on('click',botonAdd,data,_private.crearObj) ;
+   
+						   	   jElement.on('click',botonAdd,data,_private.crearObj) ;
 
 				       	},
 
@@ -110,20 +118,20 @@
 
 						crearObj : function(event) {
 
-									var container = jQuery(".container-master-field ").children();
-									//Aqui se presenta un bug porque siempre esta tomando la primera opción.
-
+									
 									var plugin = event.data;
 									var  elementEvent = this;
-									_private.debug(elementEvent);
-									var jAddElement = null; 
+									var jAddElement = $(elementEvent); 
 
-										if(elementEvent == undefined){
-											jAddElement = elementEvent
+									_private.debug("----crearobj----");
+									_private.debug(plugin);
+									hola = plugin;
+									
+									jPadreElement =  jAddElement.parent();
+								   
 
-										}else{
-											jAddElement = container.last()
-										}	
+									_private.debug(jAddElement.parent());
+									
 
 									cont = cont + 1;
 
@@ -161,13 +169,14 @@
 
 
 									var htmlInicial = plugin.jClon.html();
-		   							var formato =   '<div  class="container-master-field">' + htmlInicial +btnAdd+btnDelete+ '</div>';
-									jAddElement.parent().after(formato);
-			   						
+		   							var formato =   '<div  class="container-master-field">' + htmlInicial+btnDelete+ '</div>';
+									i = jPadreElement.parent().append(formato);
+									 _private.debug("---- clon listo ---")
+			   						 _private.debug(i)
 						},
 						eliminaObj : function(event) {
 
-							         var plugin = event.data;
+							         
 							         var campoCancel = $(this);
 							         var padre = campoCancel.parent();
 
