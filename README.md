@@ -1,4 +1,4 @@
-MasterField
+jQuery.cloneFields
 ===========
 
 Función --> Plugin de jQuery que permite generar duplicar varios elementos que se encuentran en un div.
